@@ -1,0 +1,17 @@
+.card {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.btn-primary {
+  background: var(--ax-primary) !important;
+  border: none !important;
+  color: var(--ax-on-primary) !important;
+}
+
+.btn-primary:hover {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+}
+
+.text-warning { color: #FFD700 !important; }

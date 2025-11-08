@@ -1,0 +1,76 @@
+// Override Bootstrap SCSS variables to match the AIRXPRESS design system
+// Palette limited to: white, black, blue (#0d6efd), yellow (#FFD700)
+$primary: #0d6efd !default;
+$warning: #ffd700 !default;
+$body-color: #000000 !default;
+$body-bg: #ffffff !default;
+$success: #ffd700 !default;
+
+// Optionally tweak more Bootstrap tokens here (borders, radii, etc.)
+
+// Import Bootstrap's SCSS so the compiled CSS uses our variables
+// NOTE: the previous '~' tilde syntax is deprecated/unsupported in some toolchains.
+// Use a plain module path which the Sass resolver should find in node_modules.
+@import 'bootstrap/scss/bootstrap';
+
+/* Keep CSS custom properties for runtime theming and components that reference them */
+:root {
+  /* Design system colors (kept as CSS vars for runtime use). These will be
+     overridden at runtime by `src/assets/color.json` if available. */
+  --ax-primary: #0d6efd; /* bootstrap primary */
+  --ax-on-primary: #ffffff;
+  --ax-accent: #ffd700;  /* yellow/gold */
+  --ax-text: #000000;
+  --ax-light: #ffffff;
+  --ax-success: #ffd700;
+  --ax-muted: rgba(0,0,0,0.6);
+}
+
+/* Helpers mapped to Bootstrap utility names where appropriate */
+.text-primary { color: var(--ax-primary) !important; }
+.text-warning { color: var(--ax-accent) !important; }
+.bg-primary { background-color: var(--ax-primary) !important; }
+
+/* Ensure Bootstrap primary buttons and utilities follow the runtime CSS var
+   so dynamic changes (from /assets/color.json) affect buttons too. */
+.btn-primary {
+  background-color: var(--ax-primary) !important;
+  border-color: var(--ax-primary) !important;
+  color: var(--ax-on-primary, #fff) !important;
+}
+.btn-primary:hover, .btn-primary:focus {
+  filter: brightness(0.95);
+}
+
+html, body, app-root { height: 100%; }
+body, app-root { background: var(--ax-primary); color: var(--ax-on-primary, #fff); }
+
+.bg-gradient-primary { background: var(--ax-primary) !important; }
+
+.seat-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.18rem 0.5rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  line-height: 1;
+  border: 1px solid rgba(0,0,0,0.12);
+  background-color: #fff;
+  color: #000;
+}
+
+.seat-badge--occupied {
+  background-color: var(--ax-primary) !important;
+  color: var(--ax-on-primary) !important;
+  border-color: var(--ax-primary) !important;
+}
+
+.seat-badge--free {
+  background-color: #fff !important;
+  color: #000 !important;
+  border-color: rgba(0,0,0,0.12) !important;
+}
+
+.seat-badge + .seat-badge { margin-left: 0.4rem; }

@@ -1,0 +1,28 @@
+/* Use global bg-gradient-primary from styles.scss */
+
+.card {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.97);
+}
+
+.badge {
+  font-size: 0.85rem;
+}
+
+.alert-info {
+  /* Use white background and primary accents to stay within the 4-color palette */
+  background-color: var(--ax-light) !important;
+  border: 1px solid var(--ax-primary);
+  color: var(--ax-primary);
+}
+.btn-primary {
+  background: var(--ax-primary) !important;
+  border: none !important;
+  color: var(--ax-on-primary) !important;
+}
+
+.btn-primary:hover {
+  filter: brightness(0.95);
+}
+
+.text-warning { color: #FFD700 !important; }

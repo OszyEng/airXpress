@@ -1,0 +1,83 @@
+<div class="container py-5">
+  <ng-container *ngIf="isAdmin; else denied">
+  <div class="card shadow-lg border-0" style="border-radius: 16px;">
+    <div class="card-header bg-primary text-white text-center py-4">
+      <h3 class="mb-0">Reportes del Sistema</h3>
+    </div>
+    <div class="card-body p-5">
+
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="p-4 bg-light rounded text-center">
+            <h5>Usuarios</h5>
+            <h2 class="text-primary">{{ reports.totalUsers }}</h2>
+            <small>Usuarios registrados</small>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="p-4 bg-light rounded text-center">
+            <h5>Reservas Totales</h5>
+            <h2 class="text-primary">{{ reports.totalReservations }}</h2>
+            <small>Asientos reservados</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <h5 class="text-primary">Clase de Negocios</h5>
+        <div class="row g-3">
+          <div class="col-6">
+            <div class="p-3 bg-primary text-white rounded text-center shadow-sm">
+              <strong class="fs-4">{{ reports.businessOccupied }}</strong><br>
+              <small>Ocupados</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="p-3 bg-white border border-black rounded text-center">
+              <strong class="fs-4 text-black">{{ reports.businessFree }}</strong><br>
+              <small class="text-muted">Libres</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <h5 class="text-primary">Clase Económica</h5>
+        <div class="row g-3">
+          <div class="col-6">
+            <div class="p-3 bg-primary text-white rounded text-center shadow-sm">
+              <strong class="fs-4">{{ reports.economyOccupied }}</strong><br>
+              <small>Ocupados</small>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="p-3 bg-white border border-black rounded text-center">
+              <strong class="fs-4 text-black">{{ reports.economyFree }}</strong><br>
+              <small class="text-muted">Libres</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 text-center">
+        <button class="btn btn-primary" (click)="downloadXML()">
+          Descargar XML de Reservas
+        </button>
+        <div class="mt-3" *ngIf="isAdmin">
+          <label class="form-label">Cargar reservas desde XML</label>
+          <div class="d-flex justify-content-center gap-2">
+            <input type="file" accept="text/xml,application/xml" #fileInput class="form-control form-control-sm" (change)="onFileSelected($any($event.target).files[0])">
+          </div>
+          <div *ngIf="uploadResult" class="mt-2">
+            <div class="alert alert-success" *ngIf="uploadResult.errors === 0">Importadas {{ uploadResult.success }} reservas correctamente.</div>
+            <div class="alert alert-warning" *ngIf="uploadResult.errors > 0">Importadas {{ uploadResult.success }} reservas. Errores: {{ uploadResult.errors }}.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </ng-container>
+  <ng-template #denied>
+    <div class="alert alert-danger mt-5">Acceso denegado. Esta sección está disponible solo para administradores.</div>
+  </ng-template>
+</div>

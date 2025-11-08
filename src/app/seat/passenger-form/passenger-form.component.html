@@ -1,0 +1,92 @@
+<div class="min-vh-100 bg-gradient-primary p-3">
+  <!-- Header removed: shared header is rendered globally -->
+
+  <div class="container py-4">
+    <div class="card shadow-lg border-0" style="border-radius: 16px; overflow: hidden;">
+      <div class="card-header bg-primary text-white text-center py-3">
+        <h3 class="mb-0">Datos de los Pasajeros</h3>
+      </div>
+
+      <div class="card-body p-4">
+
+        <!-- Resumen de asientos -->
+        <div class="alert alert-info mb-4">
+          <strong>Resumen:</strong> 
+          {{ selectedSeats.length }} asiento{{ selectedSeats.length > 1 ? 's' : '' }} 
+          en clase <span class="text-uppercase">{{ seatClass }}</span>
+          <div class="mt-2">
+            <small class="d-block">
+              <strong>Asientos:</strong> 
+              <span class="seat-badge seat-badge--free" *ngFor="let seat of selectedSeats">
+                {{ seat.number }}
+              </span>
+            </small>
+          </div>
+        </div>
+
+        <!-- Formularios por pasajero -->
+        <form (ngSubmit)="onSubmit()" #passengerForm="ngForm">
+          <div *ngFor="let seat of selectedSeats; let i = index" class="mb-4 p-3 border rounded bg-light">
+            <h5 class="text-primary mb-3">
+              Pasajero {{ i + 1 }} — Asiento <strong>{{ seat.number }}</strong>
+            </h5>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Nombre completo</label>
+                <input type="text" class="form-control" 
+                       [(ngModel)]="passengers[i].name" 
+                       [name]="'name_' + i" required>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">DPI</label>
+                <input type="text" class="form-control" 
+                       [(ngModel)]="passengers[i].id" 
+                       [name]="'id_' + i" required>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Maletas</label>
+                <div class="d-flex gap-3 align-items-center">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" [name]="'maletas_' + i" id="maletas_yes_{{i}}" (change)="passengers[i].maletas = true" [checked]="passengers[i].maletas === true">
+                    <label class="form-check-label" for="maletas_yes_{{i}}">Sí</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" [name]="'maletas_' + i" id="maletas_no_{{i}}" (change)="passengers[i].maletas = false" [checked]="passengers[i].maletas === false">
+                    <label class="form-check-label" for="maletas_no_{{i}}">No</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botones -->
+          <div class="d-flex gap-3 justify-content-between mt-4">
+            <button type="button" class="btn btn-outline-secondary px-4" 
+                    (click)="goBack()">
+              Volver
+            </button>
+            <button type="submit" class="btn btn-primary px-5" 
+                    [disabled]="!passengerForm.valid">
+              Confirmar Reserva
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast de éxito -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div #successToast class="toast align-items-center text-white bg-primary border-0" role="alert">
+    <div class="d-flex">
+      <div class="toast-body">
+        <strong>Éxito:</strong> Reserva confirmada. Redirigiendo...
+      </div>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+<div class="container-fluid bg-primary text-white min-vh-100 p-0">
+
+  <div class="d-flex flex-column flex-md-row min-vh-100">
+
+  <aside *ngIf="!hideConfig" class="order-0 order-md-0 bg-primary text-white p-3 p-md-4 position-relative"
+    style="flex: 0 0 280px; min-width: 280px;">
+  <div class="card bg-white text-dark p-3 shadow-sm d-flex flex-column"
+       style="min-height: 400px; max-height: 500px; border-radius: 12px;">
+    
+    <h3 class="text-primary mb-3 fs-5 text-center">Configuración</h3>
+
+    <div class="text-center mb-3">
+      <small class="text-muted d-block">Seleccionados</small>
+      <strong class="text-primary fs-3">{{ getSelectedCount() }} / {{ seatCount }}</strong>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="d-flex flex-column flex-grow-1 gap-3">
+      <div>
+        <label class="form-label fs-6 mb-1">Cantidad</label>
+        <input type="number" class="form-control form-control-sm" min="1"
+               [(ngModel)]="seatCount" name="seatCount" (ngModelChange)="onSeatCountChange()">
+      </div>
+
+      <div>
+        <label class="form-label fs-6 mb-1">Clase</label>
+        <select class="form-select form-select-sm" 
+        [(ngModel)]="seatClass" 
+        name="seatClass"
+        (ngModelChange)="onSeatClassChange()">
+  <option value="negocios">Negocios</option>
+  <option value="economica">Económica</option>
+</select>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-sm mt-auto">
+        Siguiente
+      </button>
+    </form>
+  </div>
+
+  <div class="vertical-divider d-none d-md-block"></div>
+</aside>
+
+  <main class="order-1 order-md-1 flex-grow-1 p-4 overflow-auto">
+      <div class="container">
+        <h2 class="text-center mb-4 text-white d-md-none">Selección de Asientos</h2>
+
+        <div class="row g-4">
+          <div class="col-12 col-md-6">
+            <div class="card p-3 h-100">
+              <h3 class="text-primary">Clase de Negocios</h3>
+              <div class="seat-grid-business">
+                <div *ngFor="let seat of businessSeats"
+                     class="seat"
+                     [ngClass]="getSeatClass(seat)"
+                     (click)="toggleSeatSelection(seat)">
+                  {{seat.number}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="card p-3 h-100">
+              <h3 class="text-primary">Clase Económica</h3>
+              <div class="seat-grid-economy">
+                <div *ngFor="let seat of economySeats"
+                     class="seat"
+                     [ngClass]="getSeatClass(seat)"
+                     (click)="toggleSeatSelection(seat)">
+                  {{seat.number}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3" 
+     style="z-index: 1080; max-width: 90%;">
+  <div #classMismatchToast
+       class="toast align-items-center border-0 shadow-lg"
+       role="alert"
+       aria-live="assertive"
+       aria-atomic="true"
+       style="min-width: 320px; border-radius: 16px;">
+    
+    <div class="d-flex p-3">
+      <div class="toast-body text-dark flex-grow-1">
+        <div id="toastMessage" class="fs-6"></div>
+      </div>
+
+      <button type="button"
+              class="btn-close btn-close-lg me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+              style="filter: invert(0);"></button>
+    </div>
+  </div>
+</div>
+
+<button class="btn btn-warning btn-sm position-fixed bottom-0 end-0 m-3 d-md-none shadow-lg"
+        style="z-index: 1050; border-radius: 50%; width: 50px; height: 50px;"
+        (click)="scrollToConfig()"
+        title="Volver a Configuración">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+  </svg>
+</button>
+</div>

@@ -1,0 +1,4 @@
+.card-header { background: var(--ax-primary) !important; }
+.text-warning { color: var(--ax-accent) !important; }
+.bg-light { background: var(--ax-light) !important; }
+.btn-warning { background: var(--ax-accent) !important; border: none; color: #000; }

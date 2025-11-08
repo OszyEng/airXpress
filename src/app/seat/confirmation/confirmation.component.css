@@ -1,0 +1,17 @@
+.bg-success {
+  /* Map legacy .bg-success usage to the primary blue to respect the 4-color palette */
+  background: var(--ax-primary) !important;
+}
+
+.btn-light {
+  background: #FFF !important;
+  border: 2px solid #FFF !important;
+  color: var(--ax-primary) !important;
+  font-weight: 600;
+}
+
+.btn-light:hover {
+  background: #F8F9FA !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
